@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    ports:
+      - "9292:9292"
+    volumes:
+      - .:/app
+    environment:
+      - RACK_ENV=production

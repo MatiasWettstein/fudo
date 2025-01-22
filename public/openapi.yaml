@@ -1,0 +1,169 @@
+openapi: 3.1.0
+info:
+  title: API Rack
+  version: 1.0.0
+paths:
+  /auth:
+    post:
+      summary: Authenticate user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        "400":
+          description: Invalid request
+        "401":
+          description: Invalid credentials
+        "405":
+          description: Method not allowed
+  /logout:
+    post:
+      summary: Logout user
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+          description: Bearer token for authorization
+      responses:
+        "200":
+          description: Logged out
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "401":
+          description: Invalid credentials
+        "405":
+          description: Method not allowed
+  /products:
+    get:
+      summary: Get products
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+          description: Bearer token for authorization
+      responses:
+        "200":
+          description: List products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+        "401":
+          description: Invalid credentials
+        "405":
+          description: Method not allowed
+    post:
+      summary: Create a product
+      parameters:
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+          description: Bearer token for authorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        "202":
+          description: Product creation started
+        "401":
+          description: Invalid credentials
+        "405":
+          description: Method not allowed
+  /products/{id}:
+    get:
+      summary: Get product by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+          description: Bearer token for authorization
+      responses:
+        "200":
+          description: Product found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+        "401":
+          description: Invalid credentials
+        "404":
+          description: Product not found
+        "405":
+          description: Method not allowed
+  /openapi:
+    get:
+      summary: Get OpenAPI specification
+      responses:
+        "200":
+          description: OpenAPI specification
+          content:
+            text/yaml:
+              schema:
+                type: string
+        "404":
+          description: Not found
+  /AUTHORS:
+    get:
+      summary: Get AUTHORS file
+      responses:
+        "200":
+          description: AUTHORS file
+          content:
+            text/plain:
+              schema:
+                type: string
+        "404":
+          description: Not found

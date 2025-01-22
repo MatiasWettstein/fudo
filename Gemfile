@@ -1,0 +1,11 @@
+source 'https://rubygems.org'
+gem "webrick", "~> 1.9"
+gem "securerandom", "~> 0.4.1"
+gem "bcrypt", "~> 3.1"
+gem "rack", "~> 3.1"
+gem "rackup", "~> 2.2"
+gem "zlib", "~> 3.2"
+gem "stringio", "~> 3.1"
+gem "concurrent-ruby", "~> 1.3"
+gem "rspec", "~> 3.13"
+gem "rack-test", "~> 2.2"
